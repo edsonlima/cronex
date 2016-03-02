@@ -1,18 +1,18 @@
+require 'unicode'
+
 module Cronex
 
-  require 'unicode'
-
-  CASINGS = [:title, :sentence, :lower]
+  CASINGS  = [:title, :sentence, :lower]
   SEGMENTS = [:seconds, :minutes, :hours, :dayofmonth, :month, :dayofweek, :year, :timeofday, :full]
 
   SPECIAL_CHARS = ['/', '-', ',', '*']
 
   CRONEX_OPTS = {
-      casing: :sentence,
-      verbose: false,
-      zero_based_dow: true,
-      use_24_hour_time_format: false,
-      throw_exception_on_parse_error: true
+    casing: :sentence,
+    verbose: false,
+    zero_based_dow: true,
+    use_24_hour_time_format: false,
+    throw_exception_on_parse_error: true
   }
 
   class ExpressionDescriptor
@@ -41,27 +41,27 @@ module Cronex
         end
 
         desc = case type
-                 when :full
-                   full_description(expression_parts)
-                 when :timeofday
-                   time_of_day_description(expression_parts)
-                 when :hours
-                   hours_description(expression_parts)
-                 when :minutes
-                   minutes_description(expression_parts)
-                 when :seconds
-                   seconds_description(expression_parts)
-                 when :dayofmonth
-                   day_of_month_description(expression_parts)
-                 when :month
-                   month_description(expression_parts)
-                 when :dayofweek
-                   day_of_week_description(expression_parts)
-                 when :year
-                   year_description(expression_parts)
-                 else
-                   seconds_description(expression_parts)
-               end
+        when :full
+          full_description(expression_parts)
+        when :timeofday
+          time_of_day_description(expression_parts)
+        when :hours
+          hours_description(expression_parts)
+        when :minutes
+          minutes_description(expression_parts)
+        when :seconds
+          seconds_description(expression_parts)
+        when :dayofmonth
+          day_of_month_description(expression_parts)
+        when :month
+          month_description(expression_parts)
+        when :dayofweek
+          day_of_week_description(expression_parts)
+        when :year
+          year_description(expression_parts)
+        else
+          seconds_description(expression_parts)
+        end
       rescue StandardError => e
         if options[:throw_exception_on_parse_error]
           raise e
@@ -134,9 +134,9 @@ module Cronex
         # Minute range in single hour (e.g. 0-10 11)
         min_parts = min_exp.split('-')
         description += format(
-            resources.get('every_minute_between'),
-            Cronex::Utils.format_time(hour_exp, min_parts[0]),
-            Cronex::Utils.format_time(hour_exp, min_parts[1]))
+          resources.get('every_minute_between'),
+          Cronex::Utils.format_time(hour_exp, min_parts[0]),
+          Cronex::Utils.format_time(hour_exp, min_parts[1]))
       elsif hour_exp.include?(',') && !Cronex::Utils.include_any?(min_exp, SPECIAL_CHARS)
         # Hours list with single minute (e.g. 30 6,14,16)
         hour_parts = hour_exp.split(',')
@@ -171,16 +171,12 @@ module Cronex
 
     def transform_case(desc, case_type = :lower)
       case case_type
-        when :sentence
-          Unicode::capitalize(desc)
-          desc.sub(/\b[[:word:]]/u) {|s| Unicode::capitalize(s)}
-          # desc.sub(/\w+/, &:capitalize)
-        when :title
-          desc.gsub(/\b[[:word:]]/u) {|s| Unicode::upcase(s)}
-          # desc.gsub(/\w+/, &:capitalize)
-        else
-          Unicode::downcase(desc)
-          # desc.downcase
+      when :sentence
+        desc.sub(/\b[[:word:]]/u) {|s| Unicode.capitalize(s)}
+      when :title
+        desc.gsub(/\b[[:word:]]/u) {|s| Unicode.upcase(s)}
+      else
+        Unicode.downcase(desc)
       end
     end
 

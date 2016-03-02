@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'cronex'
 
 module Cronex
@@ -69,12 +70,12 @@ module Cronex
       end
     end
 
-    it 'one month apenas' do
-      expect(desc_pt_br('* * * 3 *')).to eq('A cada minuto, apenas em março')
+    it 'one month todo(a)' do
+      expect(desc_pt_br('* * * 3 *')).to eq('A cada minuto, em março')
     end
 
-    it 'two months apenas' do
-      expect(desc_pt_br('* * * 3,6 *')).to eq('A cada minuto, apenas em março e junho')
+    it 'two months todo(a)' do
+      expect(desc_pt_br('* * * 3,6 *')).to eq('A cada minuto, em março e junho')
     end
 
     it 'two times each afternoon' do
@@ -87,73 +88,73 @@ module Cronex
 
     context 'once a week:' do
       it 'once a week 0' do
-        expect(desc_pt_br('46 9 * * 0')).to eq('Às 9:46 AM, apenas domingo')
+        expect(desc_pt_br('46 9 * * 0')).to eq('Às 9:46 AM, todo(a) domingo')
       end
 
       it 'once a week SUN' do
-        expect(desc_pt_br('46 9 * * SUN')).to eq('Às 9:46 AM, apenas domingo')
+        expect(desc_pt_br('46 9 * * SUN')).to eq('Às 9:46 AM, todo(a) domingo')
       end
 
       it 'once a week 7' do
-        expect(desc_pt_br('46 9 * * 7')).to eq('Às 9:46 AM, apenas domingo')
+        expect(desc_pt_br('46 9 * * 7')).to eq('Às 9:46 AM, todo(a) domingo')
       end
 
       it 'once a week 1' do
-        expect(desc_pt_br('46 9 * * 1')).to eq('Às 9:46 AM, apenas segunda-feira')
+        expect(desc_pt_br('46 9 * * 1')).to eq('Às 9:46 AM, todo(a) segunda-feira')
       end
 
       it 'once a week 6' do
-        expect(desc_pt_br('46 9 * * 6')).to eq('Às 9:46 AM, apenas sábado')
+        expect(desc_pt_br('46 9 * * 6')).to eq('Às 9:46 AM, todo(a) sábado')
       end
     end
 
     context 'once a week non zero based:' do
       it 'once a week 1' do
-        expect(desc_pt_br('46 9 * * 1', opts)).to eq('Às 9:46 AM, apenas domingo')
+        expect(desc_pt_br('46 9 * * 1', opts)).to eq('Às 9:46 AM, todo(a) domingo')
       end
 
       it 'once a week SUN' do
-        expect(desc_pt_br('46 9 * * SUN', opts)).to eq('Às 9:46 AM, apenas domingo')
+        expect(desc_pt_br('46 9 * * SUN', opts)).to eq('Às 9:46 AM, todo(a) domingo')
       end
 
       it 'once a week 2' do
-        expect(desc_pt_br('46 9 * * 2', opts)).to eq('Às 9:46 AM, apenas segunda-feira')
+        expect(desc_pt_br('46 9 * * 2', opts)).to eq('Às 9:46 AM, todo(a) segunda-feira')
       end
 
       it 'once a week 7' do
-        expect(desc_pt_br('46 9 * * 7', opts)).to eq('Às 9:46 AM, apenas sábado')
+        expect(desc_pt_br('46 9 * * 7', opts)).to eq('Às 9:46 AM, todo(a) sábado')
       end
     end
 
     context 'twice a week:' do
       it 'twice a week 1,2' do
-        expect(desc_pt_br('46 9 * * 1,2')).to eq('Às 9:46 AM, apenas segunda-feira e terça-feira')
+        expect(desc_pt_br('46 9 * * 1,2')).to eq('Às 9:46 AM, todo(a) segunda-feira e terça-feira')
       end
 
       it 'twice a week MON,TUE' do
-        expect(desc_pt_br('46 9 * * MON,TUE')).to eq('Às 9:46 AM, apenas segunda-feira e terça-feira')
+        expect(desc_pt_br('46 9 * * MON,TUE')).to eq('Às 9:46 AM, todo(a) segunda-feira e terça-feira')
       end
 
       it 'twice a week 0,6' do
-        expect(desc_pt_br('46 9 * * 0,6')).to eq('Às 9:46 AM, apenas domingo e sábado')
+        expect(desc_pt_br('46 9 * * 0,6')).to eq('Às 9:46 AM, todo(a) domingo e sábado')
       end
 
       it 'twice a week 6,7' do
-        expect(desc_pt_br('46 9 * * 6,7')).to eq('Às 9:46 AM, apenas sábado e domingo')
+        expect(desc_pt_br('46 9 * * 6,7')).to eq('Às 9:46 AM, todo(a) sábado e domingo')
       end
     end
 
     context 'twice a week non zero based:' do
       it 'twice a week 1,2' do
-        expect(desc_pt_br('46 9 * * 1,2', opts)).to eq('Às 9:46 AM, apenas domingo e segunda-feira')
+        expect(desc_pt_br('46 9 * * 1,2', opts)).to eq('Às 9:46 AM, todo(a) domingo e segunda-feira')
       end
 
       it 'twice a week SUN,MON' do
-        expect(desc_pt_br('46 9 * * SUN,MON', opts)).to eq('Às 9:46 AM, apenas domingo e segunda-feira')
+        expect(desc_pt_br('46 9 * * SUN,MON', opts)).to eq('Às 9:46 AM, todo(a) domingo e segunda-feira')
       end
 
       it 'twice a week 6,7' do
-        expect(desc_pt_br('46 9 * * 6,7', opts)).to eq('Às 9:46 AM, apenas sexta-feira e sábado')
+        expect(desc_pt_br('46 9 * * 6,7', opts)).to eq('Às 9:46 AM, todo(a) sexta-feira e sábado')
       end
     end
 
@@ -166,11 +167,11 @@ module Cronex
     end
 
     it 'month name' do
-      expect(desc_pt_br('23 12 * JAN *')).to eq('Às 12:23 PM, apenas em janeiro')
+      expect(desc_pt_br('23 12 * JAN *')).to eq('Às 12:23 PM, em janeiro')
     end
 
     it 'day of month with question mark' do
-      expect(desc_pt_br('23 12 ? JAN *')).to eq('Às 12:23 PM, apenas em janeiro')
+      expect(desc_pt_br('23 12 ? JAN *')).to eq('Às 12:23 PM, em janeiro')
     end
 
     it 'month name range 2' do
@@ -182,7 +183,7 @@ module Cronex
     end
 
     it 'day of week name' do
-      expect(desc_pt_br('23 12 * * SUN')).to eq('Às 12:23 PM, apenas domingo')
+      expect(desc_pt_br('23 12 * * SUN')).to eq('Às 12:23 PM, todo(a) domingo')
     end
 
     context 'day of week range:' do
@@ -220,7 +221,7 @@ module Cronex
     end
 
     it 'last day of the month' do
-      expect(desc_pt_br('*/5 * L JAN *')).to eq('A cada 5 minutos, no último dia do mês, apenas em janeiro')
+      expect(desc_pt_br('*/5 * L JAN *')).to eq('A cada 5 minutos, no último dia do mês, em janeiro')
     end
 
     it 'time of day with seconds' do
@@ -242,7 +243,7 @@ module Cronex
 
     it 'minutes past the hour range' do
       expect(desc_pt_br('0 30 10-13 ? * WED,FRI')).to eq(
-        '30 minutos após a hora, entre 10:00 AM e 1:59 PM, apenas quarta-feira e sexta-feira')
+        '30 minutos após a hora, entre 10:00 AM e 1:59 PM, todo(a) quarta-feira e sexta-feira')
     end
 
     it 'seconds past the minute interval' do
@@ -273,15 +274,15 @@ module Cronex
     end
 
     it 'one year only with seconds' do
-      expect(desc_pt_br('* * * * * * 2013')).to eq('A cada segundo, apenas em 2013')
+      expect(desc_pt_br('* * * * * * 2013')).to eq('A cada segundo, em 2013')
     end
 
-    it 'one year apenas without seconds' do
-      expect(desc_pt_br('* * * * * 2013')).to eq('A cada minuto, apenas em 2013')
+    it 'one year todo(a) without seconds' do
+      expect(desc_pt_br('* * * * * 2013')).to eq('A cada minuto, em 2013')
     end
 
-    it 'two years apenas' do
-      expect(desc_pt_br('* * * * * 2013,2014')).to eq('A cada minuto, apenas em 2013 e 2014')
+    it 'two years todo(a)' do
+      expect(desc_pt_br('* * * * * 2013,2014')).to eq('A cada minuto, em 2013 e 2014')
     end
 
     it 'year range 2' do
@@ -352,11 +353,11 @@ module Cronex
       end
 
       it 'month increments' do
-        expect(desc_pt_br('0 20 10 * 2/3 THU')).to eq('Às 10:20 AM, apenas quinta-feira, a cada 3 mêses, iniciando em fevereiro')
+        expect(desc_pt_br('0 20 10 * 2/3 THU')).to eq('Às 10:20 AM, todo(a) quinta-feira, a cada 3 mêses, iniciando em fevereiro')
       end
 
       it 'year increments' do
-        expect(desc_pt_br('0 0 0 1 MAR * 2010/5')).to eq('Às 0:00 AM, no dia 1 do mês, apenas em março, a cada 5 anos, iniciando em 2010')
+        expect(desc_pt_br('0 0 0 1 MAR * 2010/5')).to eq('Às 0:00 AM, no dia 1 do mês, em março, a cada 5 anos, iniciando em 2010')
       end
     end
   end
